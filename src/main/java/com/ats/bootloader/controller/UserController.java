@@ -11,7 +11,6 @@ import java.util.List;
 
 // @RestController是@ResponseBody和@Controller的组合注解。返回json
 @RestController
-//
 @RequestMapping(value = {"/user"})
 public class UserController {
 
