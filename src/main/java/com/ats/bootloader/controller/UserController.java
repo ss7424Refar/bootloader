@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 // @RestController是@ResponseBody和@Controller的组合注解。返回json
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping(value = {"/user"})
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @RequestMapping(value = {"/findAll"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
@@ -26,7 +27,7 @@ public class UserController {
     //  http://localhost:8081/user/getUserById?userId=2
     // 请求参数为userId，不为userid
     @RequestMapping("getUserById")
-    public User getUserById(Integer userId) {
+    public User getUserById(Integer userId)  {
         return userService.getUserById(userId);
     }
 

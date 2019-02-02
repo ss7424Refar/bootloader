@@ -1,7 +1,9 @@
 package com.ats.bootloader.controller;
 
-import com.ats.bootloader.properties.ConfigProperties;
+import com.ats.bootloader.config.BootLoaderConfig;
 import com.ats.bootloader.util.HttpClientUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -9,7 +11,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +22,14 @@ import java.util.Map;
 
 @RestController
 public class TestController {
+
+    private final static Logger logger = LoggerFactory.getLogger(TestController.class);
+
     @Autowired
-    ConfigProperties configProperties;
+    BootLoaderConfig bootLoaderConfig;
+
+    @Resource
+    RestTemplate restTemplate;
 
     @Autowired
     HttpClientUtil httpClientUtil;
@@ -66,12 +76,6 @@ public class TestController {
         return list;
     }
 
-    @GetMapping("/getUrl")
-    public String getHttpUrl() {
-
-        return configProperties.getHttpUrl();
-    }
-
     @GetMapping("testHttp")
     public String testHttp() {
         String url = "http://localhost:8081/boot-loader/getFileName";
@@ -90,5 +94,28 @@ public class TestController {
         String response = httpClientUtil.request(url, HttpMethod.GET, MediaType.APPLICATION_JSON_UTF8, params);
         System.out.println(response);
         return response;
+    }
+
+    @GetMapping("/getUrl2")
+    public String getHttpUrl2() {
+
+        return bootLoaderConfig.getHttpUrl();
+    }
+
+    @GetMapping("/getUrl3")
+    public String testHttp3() {
+        String url = "http://localhost:8081/boot-loader/getFileName";
+
+        return restTemplate.getForObject(url, String.class);
+    }
+
+    @GetMapping("/testLogger")
+    public String logger() {
+        logger.trace("trace");
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+
+        return "logger";
     }
 }

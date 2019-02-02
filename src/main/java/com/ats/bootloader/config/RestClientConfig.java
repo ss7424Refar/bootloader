@@ -1,24 +1,30 @@
 package com.ats.bootloader.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-@Configuration
+@Configuration // @Configuration标注在类上，相当于把该类作为spring的xml配置文件中的<beans>
 public class RestClientConfig {
 
-    @Bean
-    public RestTemplate restTemplate() {
-        // 设置超时
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        // 10秒
-        requestFactory.setConnectTimeout(10000);
-        // 5秒
-        requestFactory.setReadTimeout(5000);
+    @Autowired
+    BootLoaderConfig bootLoaderConfig;
 
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        return restTemplate;
+    @Bean
+    public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
+        // 设置超时
+        SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        simpleClientHttpRequestFactory.setConnectTimeout(bootLoaderConfig.getHttpConnectTimeOut());
+        simpleClientHttpRequestFactory.setReadTimeout(bootLoaderConfig.getHttpReadTimeOut());
+        return simpleClientHttpRequestFactory;
+    }
+
+    @Bean // 操作相当于实例化Bean ，并交给spring管理
+    public RestTemplate restTemplate(ClientHttpRequestFactory clientHttpRequestFactory){
+        return new RestTemplate(clientHttpRequestFactory);
     }
 
 }

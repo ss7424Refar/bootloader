@@ -5,12 +5,13 @@ import com.ats.bootloader.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userDao;//这里可能会报错，但是并不会影响
 
     // 按照userId查找
