@@ -1,46 +1,67 @@
 server:
   port: 8081
   servlet.context-path: /boot-loader
+  #Tomcat
+  tomcat:
+    accesslog:
+      buffered: true
+      # 指定access文件的路径
+      directory: /home/refar/ideaProjects/bootloader/log
+      # 需要accesslog时设置为true
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      # common - %h %l %u %t "%r" %s %b，依次为：远程主机名称，远程用户名，被认证的远程用户，日期和时间，请求的第一行，response code，发送的字节数
+      # %h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"，依次为：远程主机名称，远程用户名，被认证的远程用户，日期和时间，请求的第一行，response code，发送的字节数，request header的Referer信息，request header的User-Agent信息。
+      pattern: combined
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: true
+      # 这个参数决定是否需要切换切换日志文件，如果被设置为false，则日志文件不会切换，即所有文件打到同一个日志文件中，并且file-date-format参数也会被忽略
+      rotate: true
+      suffix: .log
 
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
-    druid:
-      filters: stat,wall
-      driver-class-name: com.mysql.jdbc.Driver
-      #基本属性
-      url: jdbc:mysql://127.0.0.1:3306/bootloader?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-      username: root
-      password: 123456
-      #连接池建立时创建的初始化连接数
-      initial-size: 5
-      #连接池中最大的活跃连接数
-      max-active: 20
-      #连接池中最小的活跃连接数
-      min-idle: 1
-      #配置获取连接等待超时的时间
-      max-wait: 60000
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1 FROM DUAL
-      validation-query-timeout: 30000
-      #是否在连接空闲一段时间后检测其可用性
-      test-while-idle: true
-      #是否在获得连接后检测其可用性
-      test-on-borrow: false
-      #是否在连接放回连接池后检测其可用性
-      test-on-return: false
-      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
-      pool-prepared-statements: false
-      max-pool-prepared-statement-per-connection-size: 20
+    filters: stat,wall
+    driver-class-name: com.mysql.jdbc.Driver
+    #基本属性
+    url: jdbc:mysql://127.0.0.1:3306/bootloader?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: 123456
+    #连接池建立时创建的初始化连接数
+    initial-size: 5
+    #连接池中最大的活跃连接数
+    max-active: 20
+    #连接池中最小的活跃连接数
+    min-idle: 1
+    #配置获取连接等待超时的时间
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 1 FROM DUAL
+    validation-query-timeout: 30000
+    #是否在连接空闲一段时间后检测其可用性
+    test-while-idle: true
+    #是否在获得连接后检测其可用性
+    test-on-borrow: false
+    #是否在连接放回连接池后检测其可用性
+    test-on-return: false
+    #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+    pool-prepared-statements: false
+    max-pool-prepared-statement-per-connection-size: 20
 
 
 mybatis:
+  # 配置映射文件位置
   mapper-locations: classpath:mapper/*.xml
+  # 实体类扫描
   type-aliases-package: com.ats.bootloader.domain
+  # 开启驼峰匹配
+  mapUnderscoreToCamelCase: true
 
-# 打印sql
-#logging:
-#  level:
-#    com.ats.bootloader.dao : debug
+# 打印log
+logging:
+  level:
+    web: debug

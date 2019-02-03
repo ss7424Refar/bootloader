@@ -2,20 +2,16 @@ package com.ats.bootloader.dao;
 
 import com.ats.bootloader.domain.User;
 
-import java.util.List;
-
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Integer userid);
 
-    int insert(User user);
+    int insert(User record);
 
-    int insertSelective(User user);
+    int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer userId);
+    User selectByPrimaryKey(Integer userid);
 
-    int updateByPrimaryKeySelective(User user);
+    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User user);
-
-    List findAllUser();
+    int updateByPrimaryKey(User record);
 }

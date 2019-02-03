@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ats.bootloader.dao.TestPCSessionMapper">
+  <resultMap id="BaseResultMap" type="com.ats.bootloader.domain.TestPCSession">
+    <id column="machine_id" jdbcType="INTEGER" property="machineId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="machine_name" jdbcType="VARCHAR" property="machineName" />
+    <result column="lan_ip" jdbcType="VARCHAR" property="lanIp" />
+    <result column="shelf_switch" jdbcType="VARCHAR" property="shelfSwitch" />
+    <result column="dmi_product_name" jdbcType="VARCHAR" property="dmiProductName" />
+    <result column="dmi_part_number" jdbcType="VARCHAR" property="dmiPartNumber" />
+    <result column="dmi_serial_number" jdbcType="VARCHAR" property="dmiSerialNumber" />
+    <result column="dmi_oem_string" jdbcType="VARCHAR" property="dmiOemString" />
+    <result column="dmi_system_config" jdbcType="VARCHAR" property="dmiSystemConfig" />
+    <result column="bios_ec" jdbcType="VARCHAR" property="biosEc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    machine_id, id, machine_name, lan_ip, shelf_switch, dmi_product_name, dmi_part_number, 
+    dmi_serial_number, dmi_oem_string, dmi_system_config, bios_ec
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.ats.bootloader.domain.TestPCSessionKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ats_test_pc_session
+    where machine_id = #{machineId,jdbcType=INTEGER}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.ats.bootloader.domain.TestPCSessionKey">
+    delete from ats_test_pc_session
+    where machine_id = #{machineId,jdbcType=INTEGER}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ats.bootloader.domain.TestPCSession">
+    insert into ats_test_pc_session (machine_id, id, machine_name, 
+      lan_ip, shelf_switch, dmi_product_name, 
+      dmi_part_number, dmi_serial_number, dmi_oem_string, 
+      dmi_system_config, bios_ec)
+    values (#{machineId,jdbcType=INTEGER}, #{id,jdbcType=VARCHAR}, #{machineName,jdbcType=VARCHAR}, 
+      #{lanIp,jdbcType=VARCHAR}, #{shelfSwitch,jdbcType=VARCHAR}, #{dmiProductName,jdbcType=VARCHAR}, 
+      #{dmiPartNumber,jdbcType=VARCHAR}, #{dmiSerialNumber,jdbcType=VARCHAR}, #{dmiOemString,jdbcType=VARCHAR}, 
+      #{dmiSystemConfig,jdbcType=VARCHAR}, #{biosEc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ats.bootloader.domain.TestPCSession">
+    insert into ats_test_pc_session
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="machineId != null">
+        machine_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="machineName != null">
+        machine_name,
+      </if>
+      <if test="lanIp != null">
+        lan_ip,
+      </if>
+      <if test="shelfSwitch != null">
+        shelf_switch,
+      </if>
+      <if test="dmiProductName != null">
+        dmi_product_name,
+      </if>
+      <if test="dmiPartNumber != null">
+        dmi_part_number,
+      </if>
+      <if test="dmiSerialNumber != null">
+        dmi_serial_number,
+      </if>
+      <if test="dmiOemString != null">
+        dmi_oem_string,
+      </if>
+      <if test="dmiSystemConfig != null">
+        dmi_system_config,
+      </if>
+      <if test="biosEc != null">
+        bios_ec,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="machineId != null">
+        #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="machineName != null">
+        #{machineName,jdbcType=VARCHAR},
+      </if>
+      <if test="lanIp != null">
+        #{lanIp,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfSwitch != null">
+        #{shelfSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiProductName != null">
+        #{dmiProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiPartNumber != null">
+        #{dmiPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiSerialNumber != null">
+        #{dmiSerialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiOemString != null">
+        #{dmiOemString,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiSystemConfig != null">
+        #{dmiSystemConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="biosEc != null">
+        #{biosEc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ats.bootloader.domain.TestPCSession">
+    update ats_test_pc_session
+    <set>
+      <if test="machineName != null">
+        machine_name = #{machineName,jdbcType=VARCHAR},
+      </if>
+      <if test="lanIp != null">
+        lan_ip = #{lanIp,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfSwitch != null">
+        shelf_switch = #{shelfSwitch,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiProductName != null">
+        dmi_product_name = #{dmiProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiPartNumber != null">
+        dmi_part_number = #{dmiPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiSerialNumber != null">
+        dmi_serial_number = #{dmiSerialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiOemString != null">
+        dmi_oem_string = #{dmiOemString,jdbcType=VARCHAR},
+      </if>
+      <if test="dmiSystemConfig != null">
+        dmi_system_config = #{dmiSystemConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="biosEc != null">
+        bios_ec = #{biosEc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where machine_id = #{machineId,jdbcType=INTEGER}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ats.bootloader.domain.TestPCSession">
+    update ats_test_pc_session
+    set machine_name = #{machineName,jdbcType=VARCHAR},
+      lan_ip = #{lanIp,jdbcType=VARCHAR},
+      shelf_switch = #{shelfSwitch,jdbcType=VARCHAR},
+      dmi_product_name = #{dmiProductName,jdbcType=VARCHAR},
+      dmi_part_number = #{dmiPartNumber,jdbcType=VARCHAR},
+      dmi_serial_number = #{dmiSerialNumber,jdbcType=VARCHAR},
+      dmi_oem_string = #{dmiOemString,jdbcType=VARCHAR},
+      dmi_system_config = #{dmiSystemConfig,jdbcType=VARCHAR},
+      bios_ec = #{biosEc,jdbcType=VARCHAR}
+    where machine_id = #{machineId,jdbcType=INTEGER}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

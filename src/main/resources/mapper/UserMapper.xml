@@ -21,7 +21,8 @@
     where userId = #{userid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ats.bootloader.domain.User">
-    insert into t_user (userId, userName, password, phone)
+    insert into t_user (userId, userName, password, 
+      phone)
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR})
   </insert>
@@ -78,8 +79,4 @@
       phone = #{phone,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
-
-  <select id="findAllUser" resultType="com.ats.bootloader.domain.User">
-    select * from t_user
-  </select>
 </mapper>

@@ -18,11 +18,11 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = {"/findAll"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
-    public List getAllUsers() {
-        List list = userService.findAllUser();
-        return list;
-    }
+//    @RequestMapping(value = {"/findAll"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
+//    public List getAllUsers() {
+//        List list = userService.findAllUser();
+//        return list;
+//    }
 
     //  http://localhost:8081/user/getUserById?userId=2
     // 请求参数为userId，不为userid
