@@ -14,9 +14,14 @@ public class TestPCSessionController {
     @Autowired
     TestPCSessionService testPCSessionService;
 
+    /**
+     *  插入测试机数据到31接口
+     * @param testPCSession
+     * @return
+     */
     @RequestMapping("insert")
     // http://localhost:8081/boot-loader/testPCSession/insert?id=1_9&machineName=Altair UR CS1&machineId=1607122&lanIp=192.168.1.109&shelfSwitch=1_1&dmiProductName=dynabook Tab S69/NG
-    // & dmiPartNumber=PS68NNP-NXA&dmiSerialNumber=7G1217891&dmiOemString=PRT10U-AAAA4,PCN3381CCZ01FA1F/S3A-----X--&dmiSystemConfig=2&biosEc=4
+    //&dmiPartNumber=PS68NNP-NXA&dmiSerialNumber=7G1217891&dmiOemString=PRT10U-AAAA4,PCN3381CCZ01FA1F/S3A-----X--&dmiSystemConfig=2&biosEc=4
     public JsonResult insertTestPCSession(TestPCSession testPCSession) {
 
         // 根据id查询存在的机子

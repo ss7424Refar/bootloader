@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ats.bootloader.dao.TestPCSessionMapper">
+  <!--allData-->
   <resultMap id="BaseResultMap" type="com.ats.bootloader.domain.TestPCSession">
     <id column="machine_id" jdbcType="INTEGER" property="machineId" />
     <id column="id" jdbcType="VARCHAR" property="id" />
@@ -13,6 +14,24 @@
     <result column="dmi_oem_string" jdbcType="VARCHAR" property="dmiOemString" />
     <result column="dmi_system_config" jdbcType="VARCHAR" property="dmiSystemConfig" />
     <result column="bios_ec" jdbcType="VARCHAR" property="biosEc" />
+  </resultMap>
+  <!--dmiInfo-->
+  <resultMap id="dmiResultMap" type="java.util.HashMap">
+    <result column="dmi_product_name" jdbcType="VARCHAR" property="dmiProductName" />
+    <result column="dmi_serial_number" jdbcType="VARCHAR" property="dmiSerialNumber" />
+    <result column="dmi_part_number" jdbcType="VARCHAR" property="dmiPartNumber" />
+    <result column="dmi_oem_string" jdbcType="VARCHAR" property="dmiOemString" />
+    <result column="dmi_system_config" jdbcType="VARCHAR" property="dmiSystemConfig" />
+    <result column="bios_ec" jdbcType="VARCHAR" property="biosEc" />
+    <result column="lan_ip" jdbcType="VARCHAR" property="lanIp" />
+    <result column="shelf_switch" jdbcType="VARCHAR" property="shelfSwitch" />
+  </resultMap>
+  <!--port check-->
+  <resultMap id="portResultMap" type="java.util.HashMap">
+    <id column="machine_id" jdbcType="INTEGER" property="machineId" />
+    <result column="machine_name" jdbcType="VARCHAR" property="machineName" />
+    <result column="lan_ip" jdbcType="VARCHAR" property="lanIp" />
+    <result column="shelf_switch" jdbcType="VARCHAR" property="shelfSwitch" />
   </resultMap>
   <sql id="Base_Column_List">
     machine_id, id, machine_name, lan_ip, shelf_switch, dmi_product_name, dmi_part_number, 
@@ -161,4 +180,20 @@
     where machine_id = #{machineId,jdbcType=INTEGER}
       and id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="findAll" parameterType="com.ats.bootloader.domain.TestPCSessionKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ats_test_pc_session
+  </select>
+  <select id="findDmiInfoByMachineId" parameterType="com.ats.bootloader.domain.TestPCSession" resultMap="dmiResultMap">
+    select dmi_product_name, dmi_serial_number, dmi_part_number, dmi_oem_string, dmi_system_config,
+    bios_ec, lan_ip, shelf_switch
+    from ats_test_pc_session
+    where machine_id = #{machineId,jdbcType=INTEGER} limit 1
+  </select>
+
+  <select id="findPortStatus" parameterType="com.ats.bootloader.domain.TestPCSession" resultMap="portResultMap">
+    select machine_id, machine_name, lan_ip, shelf_switch
+    from ats_test_pc_session
+  </select>
 </mapper>

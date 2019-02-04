@@ -11,17 +11,13 @@ import org.springframework.stereotype.Component;
 @PropertySource(value = {"classpath:config/bootLoader.properties"}, encoding = "utf-8")
 @Component // 只有这个组件是容器中的组件，才能使用容器提供的@ConfigurationProperties功能； 所以加上@Component注解
 public class BootLoaderConfig {
-    private String httpUrl;
+
     private int httpConnectTimeOut;
     private int httpReadTimeOut;
 
-    public String getHttpUrl() {
-        return httpUrl;
-    }
+    private String imagePath;
 
-    public void setHttpUrl(String httpUrl) {
-        this.httpUrl = httpUrl;
-    }
+    private int threadPool;
 
     public int getHttpConnectTimeOut() {
         return httpConnectTimeOut;
@@ -37,5 +33,22 @@ public class BootLoaderConfig {
 
     public void setHttpReadTimeOut(int httpReadTimeOut) {
         this.httpReadTimeOut = httpReadTimeOut;
+    }
+
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public int getThreadPool() {
+        return threadPool;
+    }
+
+    public void setThreadPool(int threadPool) {
+        this.threadPool = threadPool;
     }
 }

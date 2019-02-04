@@ -3,6 +3,8 @@ package com.ats.bootloader.dao;
 import com.ats.bootloader.domain.TestPCSession;
 import com.ats.bootloader.domain.TestPCSessionKey;
 
+import java.util.List;
+
 public interface TestPCSessionMapper {
     int deleteByPrimaryKey(TestPCSessionKey key);
 
@@ -15,4 +17,10 @@ public interface TestPCSessionMapper {
     int updateByPrimaryKeySelective(TestPCSession record);
 
     int updateByPrimaryKey(TestPCSession record);
+
+    List<TestPCSession> findAll();
+
+    List<TestPCSession> findDmiInfoByMachineId(int key);
+
+    List<TestPCSession> findPortStatus();
 }
