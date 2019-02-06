@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ats.bootloader.dao.TaskToolStepsMapper">
+  <resultMap id="BaseResultMap" type="com.ats.bootloader.domain.TaskToolSteps">
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="tool_name" jdbcType="VARCHAR" property="toolName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="steps" jdbcType="INTEGER" property="steps" />
+    <result column="element_json" jdbcType="OTHER" property="elementJson" />
+    <result column="result_path" jdbcType="VARCHAR" property="resultPath" />
+    <result column="tool_create_time" jdbcType="TIMESTAMP" property="toolCreateTime" />
+    <result column="tool_start_time" jdbcType="TIMESTAMP" property="toolStartTime" />
+    <result column="tool_end_time" jdbcType="TIMESTAMP" property="toolEndTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ats.bootloader.domain.TaskToolSteps">
+    insert into ats_task_tool_steps (task_id, tool_name, status, 
+      steps, element_json, result_path, 
+      tool_create_time, tool_start_time, tool_end_time
+      )
+    values (#{taskId,jdbcType=BIGINT}, #{toolName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{steps,jdbcType=INTEGER}, #{elementJson,jdbcType=OTHER}, #{resultPath,jdbcType=VARCHAR}, 
+      #{toolCreateTime,jdbcType=TIMESTAMP}, #{toolStartTime,jdbcType=TIMESTAMP}, #{toolEndTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ats.bootloader.domain.TaskToolSteps">
+    insert into ats_task_tool_steps
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="toolName != null">
+        tool_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="steps != null">
+        steps,
+      </if>
+      <if test="elementJson != null">
+        element_json,
+      </if>
+      <if test="resultPath != null">
+        result_path,
+      </if>
+      <if test="toolCreateTime != null">
+        tool_create_time,
+      </if>
+      <if test="toolStartTime != null">
+        tool_start_time,
+      </if>
+      <if test="toolEndTime != null">
+        tool_end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="toolName != null">
+        #{toolName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="steps != null">
+        #{steps,jdbcType=INTEGER},
+      </if>
+      <if test="elementJson != null">
+        #{elementJson,jdbcType=OTHER},
+      </if>
+      <if test="resultPath != null">
+        #{resultPath,jdbcType=VARCHAR},
+      </if>
+      <if test="toolCreateTime != null">
+        #{toolCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toolStartTime != null">
+        #{toolStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toolEndTime != null">
+        #{toolEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

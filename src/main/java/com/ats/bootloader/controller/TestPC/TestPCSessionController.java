@@ -1,8 +1,11 @@
 package com.ats.bootloader.controller.TestPC;
 
+import com.ats.bootloader.controller.ATS.atsController;
 import com.ats.bootloader.domain.JsonResult;
 import com.ats.bootloader.domain.TestPCSession;
 import com.ats.bootloader.service.TestPCSessionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("testPCSession")
 public class TestPCSessionController {
+
+    private Logger logger = LoggerFactory.getLogger(TestPCSessionController.class);
 
     @Autowired
     TestPCSessionService testPCSessionService;

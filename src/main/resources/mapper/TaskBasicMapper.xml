@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ats.bootloader.dao.TaskBasicMapper">
+    <resultMap id="BaseResultMap" type="com.ats.bootloader.domain.TaskBasic">
+        <id column="task_id" jdbcType="BIGINT" property="taskId"/>
+        <result column="machine_id" jdbcType="INTEGER" property="machineId"/>
+        <result column="machine_name" jdbcType="VARCHAR" property="machineName"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="lan_ip" jdbcType="VARCHAR" property="lanIp"/>
+        <result column="shelf_switch" jdbcType="VARCHAR" property="shelfSwitch"/>
+        <result column="dmi_product_name" jdbcType="VARCHAR" property="dmiProductName"/>
+        <result column="dmi_part_number" jdbcType="VARCHAR" property="dmiPartNumber"/>
+        <result column="dmi_serial_number" jdbcType="VARCHAR" property="dmiSerialNumber"/>
+        <result column="dmi_oem_string" jdbcType="VARCHAR" property="dmiOemString"/>
+        <result column="dmi_system_config" jdbcType="VARCHAR" property="dmiSystemConfig"/>
+        <result column="bios_ec" jdbcType="VARCHAR" property="biosEc"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="process" jdbcType="INTEGER" property="process"/>
+        <result column="task_create_time" jdbcType="TIMESTAMP" property="taskCreateTime"/>
+        <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime"/>
+        <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime"/>
+        <result column="tester" jdbcType="VARCHAR" property="tester"/>
+    </resultMap>
+    <resultMap id="runTaskMap" type="com.ats.bootloader.domain.TaskBasic">
+        <id column="task_id" jdbcType="BIGINT" property="taskId"/>
+        <result column="machine_id" jdbcType="INTEGER" property="machineId"/>
+        <result column="machine_name" jdbcType="VARCHAR" property="machineName"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="lan_ip" jdbcType="VARCHAR" property="lanIp"/>
+        <result column="shelf_switch" jdbcType="VARCHAR" property="shelfSwitch"/>
+        <result column="dmi_product_name" jdbcType="VARCHAR" property="dmiProductName"/>
+        <result column="dmi_part_number" jdbcType="VARCHAR" property="dmiPartNumber"/>
+        <result column="dmi_serial_number" jdbcType="VARCHAR" property="dmiSerialNumber"/>
+        <result column="dmi_oem_string" jdbcType="VARCHAR" property="dmiOemString"/>
+        <result column="dmi_system_config" jdbcType="VARCHAR" property="dmiSystemConfig"/>
+        <result column="bios_ec" jdbcType="VARCHAR" property="biosEc"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="process" jdbcType="INTEGER" property="process"/>
+        <result column="task_create_time" jdbcType="TIMESTAMP" property="taskCreateTime"/>
+        <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime"/>
+        <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime"/>
+        <result column="tester" jdbcType="VARCHAR" property="tester"/>
+        <association property="taskToolSteps" javaType="com.ats.bootloader.domain.TaskToolSteps">
+            <result column="task_id" jdbcType="BIGINT" property="taskId"/>
+            <result column="tool_name" jdbcType="VARCHAR" property="toolName"/>
+            <result column="status" jdbcType="VARCHAR" property="status"/>
+            <result column="steps" jdbcType="INTEGER" property="steps"/>
+            <result column="element_json" jdbcType="OTHER" property="elementJson"/>
+            <result column="result_path" jdbcType="VARCHAR" property="resultPath"/>
+            <result column="tool_create_time" jdbcType="TIMESTAMP" property="toolCreateTime"/>
+            <result column="tool_start_time" jdbcType="TIMESTAMP" property="toolStartTime"/>
+            <result column="tool_end_time" jdbcType="TIMESTAMP" property="toolEndTime"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+    task_id, machine_id, machine_name, category, lan_ip, shelf_switch, dmi_product_name, 
+    dmi_part_number, dmi_serial_number, dmi_oem_string, dmi_system_config, bios_ec, status, 
+    process, task_create_time, task_start_time, task_end_time, tester
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ats_task_basic
+        where task_id = #{taskId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ats_task_basic
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.ats.bootloader.domain.TaskBasic">
+    insert into ats_task_basic (task_id, machine_id, machine_name, 
+      category, lan_ip, shelf_switch, 
+      dmi_product_name, dmi_part_number, dmi_serial_number, 
+      dmi_oem_string, dmi_system_config, bios_ec, 
+      status, process, task_create_time, 
+      task_start_time, task_end_time, tester
+      )
+    values (#{taskId,jdbcType=BIGINT}, #{machineId,jdbcType=INTEGER}, #{machineName,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{lanIp,jdbcType=VARCHAR}, #{shelfSwitch,jdbcType=VARCHAR}, 
+      #{dmiProductName,jdbcType=VARCHAR}, #{dmiPartNumber,jdbcType=VARCHAR}, #{dmiSerialNumber,jdbcType=VARCHAR}, 
+      #{dmiOemString,jdbcType=VARCHAR}, #{dmiSystemConfig,jdbcType=VARCHAR}, #{biosEc,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{process,jdbcType=INTEGER}, #{taskCreateTime,jdbcType=TIMESTAMP}, 
+      #{taskStartTime,jdbcType=TIMESTAMP}, #{taskEndTime,jdbcType=TIMESTAMP}, #{tester,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.ats.bootloader.domain.TaskBasic">
+        insert into ats_task_basic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="machineId != null">
+                machine_id,
+            </if>
+            <if test="machineName != null">
+                machine_name,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="lanIp != null">
+                lan_ip,
+            </if>
+            <if test="shelfSwitch != null">
+                shelf_switch,
+            </if>
+            <if test="dmiProductName != null">
+                dmi_product_name,
+            </if>
+            <if test="dmiPartNumber != null">
+                dmi_part_number,
+            </if>
+            <if test="dmiSerialNumber != null">
+                dmi_serial_number,
+            </if>
+            <if test="dmiOemString != null">
+                dmi_oem_string,
+            </if>
+            <if test="dmiSystemConfig != null">
+                dmi_system_config,
+            </if>
+            <if test="biosEc != null">
+                bios_ec,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="process != null">
+                process,
+            </if>
+            <if test="taskCreateTime != null">
+                task_create_time,
+            </if>
+            <if test="taskStartTime != null">
+                task_start_time,
+            </if>
+            <if test="taskEndTime != null">
+                task_end_time,
+            </if>
+            <if test="tester != null">
+                tester,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                #{taskId,jdbcType=BIGINT},
+            </if>
+            <if test="machineId != null">
+                #{machineId,jdbcType=INTEGER},
+            </if>
+            <if test="machineName != null">
+                #{machineName,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="lanIp != null">
+                #{lanIp,jdbcType=VARCHAR},
+            </if>
+            <if test="shelfSwitch != null">
+                #{shelfSwitch,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiProductName != null">
+                #{dmiProductName,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiPartNumber != null">
+                #{dmiPartNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiSerialNumber != null">
+                #{dmiSerialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiOemString != null">
+                #{dmiOemString,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiSystemConfig != null">
+                #{dmiSystemConfig,jdbcType=VARCHAR},
+            </if>
+            <if test="biosEc != null">
+                #{biosEc,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="process != null">
+                #{process,jdbcType=INTEGER},
+            </if>
+            <if test="taskCreateTime != null">
+                #{taskCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskStartTime != null">
+                #{taskStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskEndTime != null">
+                #{taskEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tester != null">
+                #{tester,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ats.bootloader.domain.TaskBasic">
+        update ats_task_basic
+        <set>
+            <if test="machineId != null">
+                machine_id = #{machineId,jdbcType=INTEGER},
+            </if>
+            <if test="machineName != null">
+                machine_name = #{machineName,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="lanIp != null">
+                lan_ip = #{lanIp,jdbcType=VARCHAR},
+            </if>
+            <if test="shelfSwitch != null">
+                shelf_switch = #{shelfSwitch,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiProductName != null">
+                dmi_product_name = #{dmiProductName,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiPartNumber != null">
+                dmi_part_number = #{dmiPartNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiSerialNumber != null">
+                dmi_serial_number = #{dmiSerialNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiOemString != null">
+                dmi_oem_string = #{dmiOemString,jdbcType=VARCHAR},
+            </if>
+            <if test="dmiSystemConfig != null">
+                dmi_system_config = #{dmiSystemConfig,jdbcType=VARCHAR},
+            </if>
+            <if test="biosEc != null">
+                bios_ec = #{biosEc,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="process != null">
+                process = #{process,jdbcType=INTEGER},
+            </if>
+            <if test="taskCreateTime != null">
+                task_create_time = #{taskCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskStartTime != null">
+                task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskEndTime != null">
+                task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tester != null">
+                tester = #{tester,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where task_id = #{taskId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ats.bootloader.domain.TaskBasic">
+    update ats_task_basic
+    set machine_id = #{machineId,jdbcType=INTEGER},
+      machine_name = #{machineName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      lan_ip = #{lanIp,jdbcType=VARCHAR},
+      shelf_switch = #{shelfSwitch,jdbcType=VARCHAR},
+      dmi_product_name = #{dmiProductName,jdbcType=VARCHAR},
+      dmi_part_number = #{dmiPartNumber,jdbcType=VARCHAR},
+      dmi_serial_number = #{dmiSerialNumber,jdbcType=VARCHAR},
+      dmi_oem_string = #{dmiOemString,jdbcType=VARCHAR},
+      dmi_system_config = #{dmiSystemConfig,jdbcType=VARCHAR},
+      bios_ec = #{biosEc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      process = #{process,jdbcType=INTEGER},
+      task_create_time = #{taskCreateTime,jdbcType=TIMESTAMP},
+      task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+      task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+      tester = #{tester,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+    <select id="runTask" resultMap="runTaskMap" parameterType="com.ats.bootloader.domain.TaskBasic">
+      select t1.*, t2.*
+      from (select * from ats_task_basic where lan_ip = #{lanIp,jdbcType=VARCHAR} and status = 'pending' limit 1 ) t1
+      left join (select * from ats_task_tool_steps where status = 'pending') t2
+      on t1.task_id = t2.task_id
+  </select>
+
+</mapper>

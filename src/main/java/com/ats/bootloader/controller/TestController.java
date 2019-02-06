@@ -1,7 +1,11 @@
 package com.ats.bootloader.controller;
 
 import com.ats.bootloader.config.BootLoaderConfig;
+import com.ats.bootloader.domain.AssignTask;
+import com.ats.bootloader.domain.TaskBasic;
 import com.ats.bootloader.util.HttpClientUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +14,14 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class TestController {
@@ -80,5 +88,30 @@ public class TestController {
         logger.warn("warn");
 
         return "logger";
+    }
+
+    @RequestMapping("requestJson")
+    public String assignTaskTest(@RequestBody AssignTask assignTask){
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "";
+        try {
+            // 解析json对象
+            json = mapper.writeValueAsString(assignTask);
+            JsonNode rootNode = mapper.readTree(json);
+
+            JsonNode taskBasic = rootNode.path("task_basic");
+
+            System.out.println(taskBasic);
+            System.out.println("machineName = " + taskBasic.get(0).path("machine_name").asText());
+
+            TaskBasic taskBasic1 = mapper.readValue(mapper.writeValueAsString(taskBasic.get(0)), TaskBasic.class);
+
+            System.out.println("taskBasic = " + taskBasic1.getBiosEc());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
