@@ -13,7 +13,7 @@ public interface TaskBasicMapper {
 
     int updateByPrimaryKeySelective(TaskBasic record);
 
-    int updateByPrimaryKey(TaskBasic record);
+    int updateByPrimaryKey(Long taskId);
 
     TaskBasic runTask(String lanIp);
 }

@@ -23,6 +23,9 @@ public class ScheduledService {
     @Resource
     TestPCSessionService testPCSessionService;
 
+    /**
+     * 推送端口状态
+     */
     @Scheduled(cron = "0/5 * * * * *")
     public void scheduled(){
         logger.info("sending port status in 5s... ");
@@ -46,12 +49,20 @@ public class ScheduledService {
 
     }
 
-    @Scheduled(fixedRate = 5000)
-    // 定义一个按一定频率执行的定时任务
-    public void scheduled1() {
-        logger.info("=====>>>>>使用fixedRate{}", System.currentTimeMillis());
+    /**
+     *  todo: 待确认如何更新状态, 可能需要createTime.
+     */
+    @Scheduled(cron = "0/5 * * * * *")
+    public void scheduled2(){
+        logger.info("start update session to expired");
+
     }
-    @Scheduled(fixedDelay = 5000)
-    // 定义一个按一定频率执行的定时任务，与上面不同的是，改属性可以配合initialDelay， 定义该任务延迟执行时间
-    public void scheduled2() { logger.info("=====>>>>>fixedDelay{}",System.currentTimeMillis()); }
+//    @Scheduled(fixedRate = 5000)
+//    // 定义一个按一定频率执行的定时任务
+//    public void scheduled1() {
+//        logger.info("=====>>>>>使用fixedRate{}", System.currentTimeMillis());
+//    }
+//    @Scheduled(fixedDelay = 5000)
+//    // 定义一个按一定频率执行的定时任务，与上面不同的是，改属性可以配合initialDelay， 定义该任务延迟执行时间
+//    public void scheduled2() { logger.info("=====>>>>>fixedDelay{}",System.currentTimeMillis()); }
 }

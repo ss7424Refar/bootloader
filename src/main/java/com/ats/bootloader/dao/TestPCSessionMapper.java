@@ -6,7 +6,7 @@ import com.ats.bootloader.domain.TestPCSessionKey;
 import java.util.List;
 
 public interface TestPCSessionMapper {
-    int deleteByPrimaryKey(TestPCSessionKey key);
+    int deleteByPrimaryKey(Integer machineId);
 
     int insert(TestPCSession record);
 

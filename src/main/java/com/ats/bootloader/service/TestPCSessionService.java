@@ -36,4 +36,8 @@ public class TestPCSessionService {
     public List<TestPCSession> findPortStatus() {
         return testPCSessionDao.findPortStatus();
     }
+
+    public int deleteByPrimaryKey(Integer machineId) {
+        return testPCSessionDao.deleteByPrimaryKey(machineId);
+    }
 }

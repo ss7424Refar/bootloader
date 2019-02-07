@@ -11,11 +11,18 @@ public class TaskBasicService {
     @Resource
     TaskBasicMapper taskBasicDao;
 
+    public TaskBasic selectByPrimaryKey(Long taskId) {
+        return taskBasicDao.selectByPrimaryKey(taskId);
+    }
     public int insert(TaskBasic record) {
         return taskBasicDao.insert(record);
     };
 
     public TaskBasic runTask(String lanIp) {
         return taskBasicDao.runTask(lanIp);
+    }
+
+    public int updateByPrimaryKey(Long taskId) {
+        return taskBasicDao.updateByPrimaryKey(taskId);
     }
 }

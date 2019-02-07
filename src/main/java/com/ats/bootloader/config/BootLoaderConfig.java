@@ -19,6 +19,12 @@ public class BootLoaderConfig {
 
     private int threadPool;
 
+    private String updateTaskUrl;
+
+    private String sendBaselineMailUrl;
+
+    private String sendResultMailUrl;
+
     public int getHttpConnectTimeOut() {
         return httpConnectTimeOut;
     }
@@ -35,7 +41,6 @@ public class BootLoaderConfig {
         this.httpReadTimeOut = httpReadTimeOut;
     }
 
-
     public String getImagePath() {
         return imagePath;
     }
@@ -50,5 +55,29 @@ public class BootLoaderConfig {
 
     public void setThreadPool(int threadPool) {
         this.threadPool = threadPool;
+    }
+
+    public String getUpdateTaskUrl() {
+        return updateTaskUrl;
+    }
+
+    public void setUpdateTaskUrl(String updateTaskUrl) {
+        this.updateTaskUrl = updateTaskUrl;
+    }
+
+    public String getSendBaselineMailUrl() {
+        return sendBaselineMailUrl;
+    }
+
+    public void setSendBaselineMailUrl(String sendBaselineMailUrl) {
+        this.sendBaselineMailUrl = sendBaselineMailUrl;
+    }
+
+    public String getSendResultMailUrl() {
+        return sendResultMailUrl;
+    }
+
+    public void setSendResultMailUrl(String sendResultMailUrl) {
+        this.sendResultMailUrl = sendResultMailUrl;
     }
 }

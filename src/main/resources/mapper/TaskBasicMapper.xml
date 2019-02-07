@@ -257,23 +257,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.ats.bootloader.domain.TaskBasic">
     update ats_task_basic
-    set machine_id = #{machineId,jdbcType=INTEGER},
-      machine_name = #{machineName,jdbcType=VARCHAR},
-      category = #{category,jdbcType=VARCHAR},
-      lan_ip = #{lanIp,jdbcType=VARCHAR},
-      shelf_switch = #{shelfSwitch,jdbcType=VARCHAR},
-      dmi_product_name = #{dmiProductName,jdbcType=VARCHAR},
-      dmi_part_number = #{dmiPartNumber,jdbcType=VARCHAR},
-      dmi_serial_number = #{dmiSerialNumber,jdbcType=VARCHAR},
-      dmi_oem_string = #{dmiOemString,jdbcType=VARCHAR},
-      dmi_system_config = #{dmiSystemConfig,jdbcType=VARCHAR},
-      bios_ec = #{biosEc,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      process = #{process,jdbcType=INTEGER},
-      task_create_time = #{taskCreateTime,jdbcType=TIMESTAMP},
-      task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
-      task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
-      tester = #{tester,jdbcType=VARCHAR}
+    set status = 'finish'
     where task_id = #{taskId,jdbcType=BIGINT}
   </update>
     <select id="runTask" resultMap="runTaskMap" parameterType="com.ats.bootloader.domain.TaskBasic">

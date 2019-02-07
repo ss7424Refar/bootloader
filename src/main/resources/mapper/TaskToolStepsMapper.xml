@@ -83,4 +83,22 @@
       </if>
     </trim>
   </insert>
+
+  <update id="updateByTaskIdAndSteps" parameterType="com.ats.bootloader.domain.TaskToolSteps">
+    update ats_task_tool_steps
+    <choose>
+      <when test="status == 0">
+        set status = "pass"
+      </when>
+      <otherwise>
+        set status = "fail"
+      </otherwise>
+    </choose>
+    where task_id = #{taskId,jdbcType=BIGINT}
+    and steps = #{steps,jdbcType=INTEGER}
+  </update>
+
+  <select id="findNextStepsByTaskId" resultMap="BaseResultMap" parameterType="com.ats.bootloader.domain.TaskToolSteps">
+      select * from ats_task_tool_steps where task_id = #{taskId, jdbcType=BIGINT} and steps = #{steps, jdbcType=VARCHAR}
+  </select>
 </mapper>

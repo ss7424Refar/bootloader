@@ -3,6 +3,10 @@ package com.ats.bootloader.controller;
 import com.ats.bootloader.config.BootLoaderConfig;
 import com.ats.bootloader.domain.AssignTask;
 import com.ats.bootloader.domain.TaskBasic;
+import com.ats.bootloader.domain.TaskToolSteps;
+import com.ats.bootloader.service.TaskBasicService;
+import com.ats.bootloader.service.TaskToolStepsService;
+import com.ats.bootloader.service.TestPCSessionService;
 import com.ats.bootloader.util.HttpClientUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,11 +32,20 @@ public class TestController {
 
     private final static Logger logger = LoggerFactory.getLogger(TestController.class);
 
-    @Autowired
-    BootLoaderConfig bootLoaderConfig;
+    @Resource
+    TaskBasicService taskBasicService;
+
+    @Resource
+    TaskToolStepsService taskToolStepsService;
+
+    @Resource
+    TestPCSessionService testPCSessionService;
 
     @Resource
     RestTemplate restTemplate;
+
+    @Resource
+    BootLoaderConfig bootLoaderConfig;
 
     @Autowired
     HttpClientUtil httpClientUtil;
@@ -51,7 +64,7 @@ public class TestController {
     public String testHttp() {
         String url = "http://localhost:8081/boot-loader/getFileName";
         // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("q", ".log");
         return httpClientUtil.request(url, HttpMethod.GET, MediaType.APPLICATION_JSON_UTF8, params);
     }
@@ -60,7 +73,7 @@ public class TestController {
     public String testHttp2() {
         String url = "https://www.baidu.com/";
         // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 //        params.add("q", ".log");
         String response = httpClientUtil.request(url, HttpMethod.GET, MediaType.APPLICATION_JSON_UTF8, params);
         System.out.println(response);
@@ -91,7 +104,7 @@ public class TestController {
     }
 
     @RequestMapping("requestJson")
-    public String assignTaskTest(@RequestBody AssignTask assignTask){
+    public String assignTaskTest(@RequestBody AssignTask assignTask) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -113,5 +126,31 @@ public class TestController {
             e.printStackTrace();
         }
         return json;
+    }
+
+    @RequestMapping("updateSteps")
+    public int updateTask(Long taskId, int steps, String status) {
+        // update boot-loader.ats_task_steps
+        return taskToolStepsService.updateByTaskIdAndSteps(taskId, steps, status);
+
+    }
+
+    @RequestMapping("findSteps")
+    public TaskToolSteps findSteps(Long taskId, int steps) {
+        // update boot-loader.ats_task_steps
+        return taskToolStepsService.findNextStepsByTaskId(taskId, steps);
+
+    }
+
+    @RequestMapping("updateBasicTask")
+    public int updateBasic(Long taskId) {
+        return taskBasicService.updateByPrimaryKey(taskId);
+    }
+
+    @RequestMapping("deleteSession")
+    public int deleteSession(Long taskId) {
+        TaskBasic taskBasic = taskBasicService.selectByPrimaryKey(taskId);
+//        System.out.println(taskBasic.getMachineId());
+        return testPCSessionService.deleteByPrimaryKey(taskBasic.getMachineId());
     }
 }

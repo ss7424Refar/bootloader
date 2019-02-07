@@ -47,7 +47,7 @@
   <delete id="deleteByPrimaryKey" parameterType="com.ats.bootloader.domain.TestPCSessionKey">
     delete from ats_test_pc_session
     where machine_id = #{machineId,jdbcType=INTEGER}
-      and id = #{id,jdbcType=VARCHAR}
+      <!-- and id = #{id,jdbcType=VARCHAR} -->
   </delete>
   <insert id="insert" parameterType="com.ats.bootloader.domain.TestPCSession">
     insert into ats_test_pc_session (machine_id, id, machine_name, 

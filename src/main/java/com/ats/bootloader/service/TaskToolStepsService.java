@@ -16,4 +16,12 @@ public class TaskToolStepsService {
     public int insert(TaskToolSteps record) {
         return taskToolStepsDao.insert(record);
     }
+
+    public int updateByTaskIdAndSteps(Long taskId, Integer steps, String status) {
+        return taskToolStepsDao.updateByTaskIdAndSteps(taskId, steps, status);
+    }
+
+    public TaskToolSteps findNextStepsByTaskId(Long taskId, Integer steps) {
+        return taskToolStepsDao.findNextStepsByTaskId(taskId, steps);
+    }
 }
